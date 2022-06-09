@@ -55,18 +55,22 @@ function spicy(a){
 
     fixed = fixed.replaceAll("'", "");
     if(!fixed.includes("(String") && !fixed.includes("<String") && !fixed.includes(", String")){
-        fixed =fixed.replace("String", "create new string named");
+        fixed =fixed.replace("String", "create new string named ");
+    }
+	if(!fixed.includes("(Boolean") && !fixed.includes("<Boolean") && !fixed.includes(", Boolean")){
+        fixed =fixed.replace("Boolean", "create new boolean named ");
     }
     if(!fixed.includes("(Long") && !fixed.includes("<Long") && !fixed.includes(", Long")){
-        fixed =fixed.replace("Long", "create new long named");
+        fixed =fixed.replace("Long", "create new long named ");
     }
     fixed = dealWithHashMaps(fixed);
 
+    fixed = dealWithList(fixed);
     fixed = dealWithGet(fixed);
     fixed = dealWithSet(fixed);
     
     while(fixed.includes("for (")){
-        fixed =fixed.replace("for (", "for each");
+        fixed =fixed.replace("for (", "for each ");
         fixed =fixed.replace(")", "");
     }
     while(fixed.includes("if(")){
@@ -79,10 +83,23 @@ function spicy(a){
     }
     //fixed = dealWithMethods(fixed);
 
+	if(fixed.includes("LOG") && fixed.includes("Entering")){
+		fixed = "log entering"
+	}
+	if(fixed.includes("LOG") && fixed.includes("Exiting")){
+		fixed = "log exiting"
+	}
+	if(fixed.includes("LOG")){
+		fixed = "log info"
+	}
+	fixed = fixed.replaceAll("(,", " and")
+	fixed = fixed.replaceAll("(.", " ")
+    fixed = fixed.replaceAll(":", " in");
     fixed = fixed.replaceAll(";", "");
     fixed =fixed.replaceAll("{", "");
     fixed =fixed.replaceAll("}", "");
     fixed = fixed.replaceAll("!=", "is not equal to");
+	fixed = fixed.replaceAll("!", "is not ");
     fixed = fixed.replaceAll("==", "is equal to");
     fixed = fixed.replaceAll("=", "assign");
     fixed = fixed.replaceAll("\"", "");
@@ -148,13 +165,25 @@ function dealWithGet(pFixed){
 function dealWithHashMaps(pFixed){
     let fixed = "";
     fixed = pFixed;
-    if(!fixed.includes("(Map") && !fixed.includes(", Hash")){
+    if(!fixed.includes("(Map") && !fixed.includes(", Hash") && fixed.includes("Hash")){
         let types = "";
         types = fixed.substring(fixed.indexOf("<") + 1, fixed.indexOf(">"))
         fixed =fixed.replace("Map" + "<" + types + ">", "create new map with types " + types.toLowerCase().replace(",", ", ").replace("  ", " ") + " named");
     }
     return fixed;
 }
+
+function dealWithList(pFixed){
+    let fixed = "";
+    fixed = pFixed;
+    if(!fixed.includes("(List") && !fixed.includes(", List") && fixed.includes("List")){
+        let types = "";
+        types = fixed.substring(fixed.indexOf("<") + 1, fixed.indexOf(">"))
+        fixed =fixed.replace("List" + "<" + types + ">", "create new list with types " + types.toLowerCase().replace(",", ", ").replace("  ", " ") + " named");
+    }
+    return fixed;
+}
+
 
 function dealWithMethods(pFixed){
     let fixed = "";
