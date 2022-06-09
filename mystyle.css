@@ -1,0 +1,27 @@
+body{
+    background-color:rgb(115, 193, 115);
+}
+#content{
+    width:80%;
+    height:80%;
+    margin:auto;
+    background-color:rgb(153, 218, 153);
+}
+#introduction{
+    width:40%;
+    margin:auto;
+    margin-top:25px;
+    text-align:center;
+}
+.JungleBeatHollerAtCha{
+    width:80%;
+    height:400px;
+    overflow:auto;
+    resize:none;
+    margin:5px;
+}
+#mainSqueeze{
+    margin:auto;
+    text-align:center;
+    width:100%;
+}
