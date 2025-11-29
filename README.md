@@ -1,4 +1,3 @@
 # converter
-This is a converter
-It turns Java code into english
-37
+This converter turns Java into English really badly.
+Feel free to try or improve it.
